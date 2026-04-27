@@ -1,0 +1,432 @@
+/* ── 全局重置 ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+  font-size: 13px;
+  background: #f5f6f8;
+  color: #2c3e50;
+}
+
+/* ── 应用容器 ─────────────────────────────────────────────────── */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── 顶部栏 ───────────────────────────────────────────────────── */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  height: 44px;
+  background: #1a1f2e;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo { font-size: 18px; }
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1;
+  height: 26px;
+  padding: 0 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.tool-btn.primary {
+  background: #2b6cb0;
+  border-color: #2c5282;
+  color: #fff;
+}
+
+.tool-btn.primary:hover {
+  background: #2c5282;
+}
+
+.mode-btn, .icon-btn {
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.mode-btn:hover, .icon-btn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.mode-btn.active {
+  color: #68d391;
+  background: rgba(104,211,145,0.15);
+}
+
+/* ── 模式提示条 ───────────────────────────────────────────────── */
+#mode-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.mode-normal {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.mode-kb {
+  background: #c6f6d5;
+  color: #276749;
+}
+
+/* ── 消息列表 ─────────────────────────────────────────────────── */
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+#messages::-webkit-scrollbar {
+  width: 4px;
+}
+#messages::-webkit-scrollbar-track { background: transparent; }
+#messages::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+/* ── 消息气泡 ─────────────────────────────────────────────────── */
+.message {
+  display: flex;
+  gap: 8px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.message.assistant .avatar {
+  background: #1a1f2e;
+}
+
+.message.user .avatar {
+  background: #4299e1;
+}
+
+.bubble {
+  max-width: calc(100% - 60px);
+  padding: 9px 12px;
+  border-radius: 12px;
+  line-height: 1.6;
+  word-break: break-word;
+  font-size: 13px;
+}
+
+.message.assistant .bubble {
+  background: #fff;
+  color: #2d3748;
+  border-radius: 2px 12px 12px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.message.user .bubble {
+  background: #4299e1;
+  color: #fff;
+  border-radius: 12px 2px 12px 12px;
+}
+
+/* ── 消息内部 Markdown 样式 ───────────────────────────────────── */
+.bubble strong { font-weight: 600; }
+.bubble em { font-style: italic; }
+
+.bubble code {
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 12px;
+  background: rgba(0,0,0,0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.message.user .bubble code {
+  background: rgba(255,255,255,0.2);
+}
+
+.bubble pre {
+  background: #1a1f2e;
+  color: #a8dadc;
+  padding: 10px 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.bubble pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 12px;
+}
+
+.bubble ul, .bubble ol {
+  padding-left: 18px;
+  margin: 4px 0;
+}
+
+.bubble li { margin: 2px 0; }
+
+.bubble p { margin: 3px 0; }
+
+.bubble .quote-block {
+  border-left: 3px solid #90cdf4;
+  padding-left: 10px;
+  color: #718096;
+  margin: 4px 0;
+  font-style: italic;
+  font-size: 12px;
+  background: rgba(144,205,244,0.06);
+  border-radius: 0 4px 4px 0;
+}
+
+.message.user .bubble .quote-block {
+  border-left-color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── 打字指示器 ───────────────────────────────────────────────── */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: #a0aec0;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* ── 错误消息 ─────────────────────────────────────────────────── */
+.message.error .bubble {
+  background: #fff5f5;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+/* ── 引用预览条 ───────────────────────────────────────────────── */
+#quote-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #ebf8ff;
+  border-top: 1px solid #bee3f8;
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #2c5282;
+}
+
+#quote-bar.hidden { display: none; }
+
+.quote-icon { font-size: 13px; }
+
+#quote-preview-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+#btn-remove-quote {
+  background: none;
+  border: none;
+  color: #4299e1;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+#btn-remove-quote:hover { opacity: 1; }
+
+/* ── 输入区域 ─────────────────────────────────────────────────── */
+#input-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 8px 10px 10px;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.textarea-wrap {
+  flex: 1;
+  position: relative;
+}
+
+#input {
+  width: 100%;
+  resize: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #2d3748;
+  background: #f7fafc;
+  outline: none;
+  line-height: 1.5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+#input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66,153,225,0.15);
+  background: #fff;
+}
+
+#input::placeholder { color: #a0aec0; }
+
+.action-btn {
+  padding: 6px 8px;
+  background: #edf2f7;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+  align-self: flex-end;
+  margin-bottom: 1px;
+}
+
+.action-btn:hover {
+  background: #e2e8f0;
+  color: #2d3748;
+}
+
+.send-btn {
+  padding: 6px 14px;
+  background: #4299e1;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  align-self: flex-end;
+  margin-bottom: 1px;
+  transition: background 0.2s;
+}
+
+.send-btn:hover { background: #3182ce; }
+.send-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+/* ── 连接状态提示 ─────────────────────────────────────────────── */
+#status-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+#status-toast.show { opacity: 1; }

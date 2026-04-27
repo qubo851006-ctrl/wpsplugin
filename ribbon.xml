@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="OnRibbonLoad">
+  <ribbon startFromScratch="false">
+    <tabs>
+      <tab id="tabAIAssistant" label="AI 助手" insertAfterMso="TabHome">
+        <group id="grpAIChat" label="智能问答">
+          <button
+            id="btnOpenPanel"
+            label="AI 助手"
+            size="large"
+            onAction="OpenAIPanel"
+            imageMso="ReviewNewComment"
+            screentip="打开 AI 助手"
+            supertip="在 WPS 侧边栏中打开 AI 问答助手" />
+
+          <separator id="sep1" />
+
+          <button
+            id="btnQuoteText"
+            label="引用选中"
+            size="normal"
+            onAction="QuoteSelectedText"
+            imageMso="Copy"
+            screentip="引用选中内容"
+            supertip="将选中内容传入 AI 输入区" />
+
+          <button
+            id="btnClearChat"
+            label="清空对话"
+            size="normal"
+            onAction="ClearChatHistory"
+            imageMso="Delete"
+            screentip="清空 AI 对话"
+            supertip="清空当前会话记录" />
+        </group>
+
+        <group id="grpGovDoc" label="公文格式">
+          <button
+            id="btnGovScan"
+            label="公文体检"
+            size="normal"
+            onAction="ScanGovDocFormat"
+            imageMso="CheckSpelling"
+            screentip="公文格式体检"
+            supertip="按公文规则扫描当前文档格式问题" />
+
+          <button
+            id="btnGovApply"
+            label="一键规范化"
+            size="normal"
+            onAction="ApplyGovDocFormat"
+            imageMso="AcceptInvitation"
+            screentip="一键规范化"
+            supertip="自动统一页面、标题和正文格式" />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>

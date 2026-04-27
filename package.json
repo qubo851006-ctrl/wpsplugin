@@ -1,0 +1,9 @@
+{
+  "name": "wps-ai-qa",
+  "version": "1.0.0",
+  "description": "WPS内嵌AI智能问答助手",
+  "scripts": {
+    "debug": "wpsjs debug",
+    "publish": "wpsjs publish"
+  }
+}

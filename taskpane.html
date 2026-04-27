@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 智能问答</title>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <div id="app">
+    <div id="header">
+      <div class="header-left">
+        <span class="logo">AI</span>
+        <span class="title">AI 智能问答</span>
+      </div>
+      <div class="header-right">
+        <button id="btn-gov-scan" class="tool-btn" title="公文格式体检">体检</button>
+        <button id="btn-gov-apply" class="tool-btn primary" title="一键规范化">规范化</button>
+        <button id="btn-kb-toggle" class="mode-btn" title="切换知识库模式">📚</button>
+        <button id="btn-clear" class="icon-btn" title="清空对话">🗑</button>
+      </div>
+    </div>
+
+    <div id="mode-bar" class="mode-normal">
+      <span id="mode-label">💬 普通对话</span>
+    </div>
+
+    <div id="messages"></div>
+
+    <div id="quote-bar" class="hidden">
+      <span class="quote-icon">📌</span>
+      <span id="quote-preview-text"></span>
+      <button id="btn-remove-quote" title="取消引用">×</button>
+    </div>
+
+    <div id="input-area">
+      <button id="btn-quote-wps" class="action-btn" title="引用WPS文档选中内容">引用选中</button>
+      <div class="textarea-wrap">
+        <textarea id="input" placeholder="输入问题，按 Ctrl+Enter 发送..." rows="3" maxlength="4000"></textarea>
+      </div>
+      <button id="btn-send" class="send-btn" title="发送（Ctrl+Enter）">发送</button>
+    </div>
+  </div>
+
+  <script src="govdoc_formatter.js?v=17"></script>
+  <script src="taskpane.js?v=17"></script>
+</body>
+</html>

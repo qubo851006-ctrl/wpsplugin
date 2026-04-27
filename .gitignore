@@ -1,0 +1,37 @@
+# 环境变量（含 API 密钥，禁止提交）
+.env
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 备份文件（Claude Code 自动生成）
+.backup_*
+
+# 构建产物
+build/
+dist/
+
+# 临时文件
+tmp/
+*.tmp
+
+# PyInstaller
+*.spec
+*.exe
+
+# 实验性脚本与临时文档
+codex_docx_render/
+codex_render_png/
+codex修改建议.docx
+_ppt_extract.txt
+docx_export_codex建议.py
+
+# npm 日志
+npminstall-debug.log
+npm-debug.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db

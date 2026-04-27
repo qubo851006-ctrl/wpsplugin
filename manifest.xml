@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PluginConfig>
+  <PluginInfo>
+    <PluginName>AI智能问答助手</PluginName>
+    <ProductType>2</ProductType>
+    <PluginVersion>1.0.0.0</PluginVersion>
+    <PluginGUID>{B8F3A2C1-47D9-4E0B-9F6A-2D83C51E70AB}</PluginGUID>
+    <PluginAuthor>内部工具</PluginAuthor>
+    <PluginDescribe>WPS内嵌AI智能问答助手，支持普通对话和知识库检索</PluginDescribe>
+    <PluginHomePage>http://127.0.0.1:8765</PluginHomePage>
+  </PluginInfo>
+  <AuthorInfo>
+    <Company></Company>
+    <Email></Email>
+  </AuthorInfo>
+  <RuntimeInfo>
+    <Startup type="Global">
+      <GlobMsgs></GlobMsgs>
+      <Frames>
+        <Frame name="Main">
+          <URL>http://127.0.0.1:8765/index.html</URL>
+        </Frame>
+      </Frames>
+    </Startup>
+  </RuntimeInfo>
+</PluginConfig>
