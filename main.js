@@ -2,7 +2,7 @@
  * WPS plugin entry for ribbon actions.
  */
 
-const TASKPANE_URL = "http://127.0.0.1:8765/taskpane.html?v=7";
+const TASKPANE_URL = "http://192.168.9.226:8765/taskpane.html?v=8";
 let g_taskPane = null;
 
 function OnRibbonLoad(ribbon) {}

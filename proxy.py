@@ -2,10 +2,10 @@
 """
 WPS AI助手 - 本地代理服务器
 功能：
-  1. 静态文件服务（ribbon.xml / main.js / taskpane.*）
+  1. 静态文件服务（manifest.xml / ribbon.xml / main.js / taskpane.*）
   2. /api/chat  → 转发到内网 AI 平台（HTTPS 自签名证书绕过）
   3. /api/kb    → 转发到智弈智枢知识库
-端口：8765
+端口：8765（服务器版监听 0.0.0.0，供局域网访问）
 """
 
 import os
@@ -33,7 +33,8 @@ ZHISHU_BASE_URL   = os.getenv("ZHISHU_BASE_URL",   "")
 MODEL_CHAT        = os.getenv("MODEL_CHAT",         "glm-5-outside")
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-PORT = 8765
+PORT = int(os.getenv("WPS_AI_PORT", "8765"))
+PUBLIC_BASE_URL = os.getenv("WPS_AI_PUBLIC_BASE_URL", "http://192.168.9.226:8765")
 
 # ── CORS 头 ──────────────────────────────────────────────────────
 CORS = {
@@ -161,12 +162,13 @@ def main():
     except Exception:
         pass
 
-    server = HTTPServer(("127.0.0.1", PORT), Handler)
+    server = HTTPServer(("0.0.0.0", PORT), Handler)
 
     print("=" * 55)
     print("  WPS AI助手 代理服务器")
     print("=" * 55)
-    print(f"  地址     : http://127.0.0.1:{PORT}")
+    print(f"  监听     : 0.0.0.0:{PORT}")
+    print(f"  访问地址 : {PUBLIC_BASE_URL}")
     print(f"  AI模型   : {MODEL_CHAT}")
     print(f"  知识库   : {ZHISHU_BASE_URL}")
     print(f"  项目目录 : {PROJECT_DIR}")

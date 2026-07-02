@@ -1,7 +1,7 @@
-const PROXY = "http://127.0.0.1:8765";
+const PROXY = window.location.origin;
 
 let messages = [];
-let isKbMode = false;
+let isKbMode = true;
 let kbConversationId = "";
 let quotedText = "";
 let isSending = false;
@@ -62,7 +62,8 @@ function updateBubble(bubble, content) {
 function showWelcome() {
   const welcome = [
     "你好，我是 **AI智能问答助手**。",
-    "- 支持普通对话与知识库问答",
+    "- 默认使用知识库问答",
+    "- 点击右上角 📚 可切换到普通对话",
     "- 支持引用当前 WPS 选中内容",
     "- 新增公文功能：`体检` 与 `规范化`"
   ].join("\n");
